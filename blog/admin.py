@@ -7,7 +7,7 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'summary')
 
 class CommentAdmin(admin.ModelAdmin):
-    prepopulated_fields = {"slug": ("creator")}
+    prepopulated_fields = {"slug": ("content",)}
     list_display = ('creator', 'content')
 
 admin.site.register(Tag)
