@@ -4,6 +4,10 @@ from django import template
 from django.utils.html import format_html
 from blog.models import Post
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 register = template.Library()
 
 @register.filter
@@ -11,10 +15,6 @@ def author_details(author, current_user):
     if not isinstance(author, user_model):
         # return empty string as safe default
         return ""
-#    request = context["request"]
-#    current_user = request.user
-#    post = context["post"]
-#    author = post.author
 
     if author == current_user:
         return format_html("<strong>me</strong>")
@@ -52,4 +52,5 @@ def endcol():
 @register.inclusion_tag("blog/post-list.html")
 def recent_posts(post):
     posts = Post.objects.exclude(pk=post.pk)[:5]
+    logger.debug("Loaded %d recent posts for post %d", len(posts), post.pk)
     return {"title": "Recent Posts", "posts": posts}
