@@ -34,7 +34,7 @@ urlpatterns = [
     ),
 ]
 
-urlpatterns = format_suffix_patterns(urlpatterns)
+#urlpatterns = format_suffix_patterns(format_patterns)
 
 urlpatterns += [
     path("auth/", include("rest_framework.urls")),
